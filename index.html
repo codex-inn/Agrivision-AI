@@ -1,84 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
-  />
+  >
 
   <meta
     name="description"
     content="AgriVision AI - AI-Powered Crop Health Intelligence"
-  />
+  >
 
   <title>AgriVision AI | Plant Disease Detection</title>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- =========================================
-       HEADER
-  ========================================== -->
-
+  <!-- HEADER -->
   <header class="site-header">
-
     <div class="header-content">
 
       <div class="brand">
-
-        <div class="brand-logo">
-          🌱
-        </div>
+        <div class="brand-logo">🌱</div>
 
         <div>
           <h1>AgriVision AI</h1>
           <p>AI-Powered Crop Health Intelligence</p>
         </div>
-
       </div>
 
       <button
         id="languageButton"
         class="language-button"
+        type="button"
         onclick="toggleLanguage()"
       >
         🌐 தமிழ்
       </button>
 
     </div>
-
   </header>
 
 
-  <!-- =========================================
-       NAVIGATION
-  ========================================== -->
-
+  <!-- NAVIGATION -->
   <nav class="navbar">
 
-    <a href="#home">🏠 <span data-en="Home" data-ta="முகப்பு">Home</span></a>
+    <a href="#home">
+      🏠 <span data-en="Home" data-ta="முகப்பு">Home</span>
+    </a>
 
-    <a href="#scanner">🤖 <span data-en="AI Scanner" data-ta="AI ஸ்கேனர்">AI Scanner</span></a>
+    <a href="#scanner">
+      🤖 <span data-en="AI Scanner" data-ta="AI ஸ்கேனர்">AI Scanner</span>
+    </a>
 
-    <a href="#features">✨ <span data-en="Features" data-ta="அம்சங்கள்">Features</span></a>
+    <a href="#features">
+      ✨ <span data-en="Features" data-ta="அம்சங்கள்">Features</span>
+    </a>
 
-    <a href="#crops">🌾 <span data-en="Crops" data-ta="பயிர்கள்">Crops</span></a>
+    <a href="#crops">
+      🌾 <span data-en="Crops" data-ta="பயிர்கள்">Crops</span>
+    </a>
 
-    <a href="#history">🕘 <span data-en="History" data-ta="வரலாறு">History</span></a>
+    <a href="#history">
+      🕘 <span data-en="History" data-ta="வரலாறு">History</span>
+    </a>
 
   </nav>
 
 
   <main>
 
-    <!-- =========================================
-         HERO
-    ========================================== -->
-
+    <!-- HERO -->
     <section id="home" class="hero">
 
       <div class="hero-content">
@@ -134,10 +130,7 @@
     </section>
 
 
-    <!-- =========================================
-         SCANNER
-    ========================================== -->
-
+    <!-- SCANNER -->
     <section id="scanner" class="section">
 
       <div class="section-heading">
@@ -163,6 +156,7 @@
 
       <div class="scanner-card">
 
+        <!-- IMAGE PREVIEW -->
         <div
           id="imagePreview"
           class="image-preview"
@@ -170,9 +164,7 @@
 
           <div id="uploadPlaceholder">
 
-            <div class="upload-icon">
-              📷
-            </div>
+            <div class="upload-icon">📷</div>
 
             <h3
               data-en="Upload Plant Image"
@@ -182,28 +174,32 @@
             </h3>
 
             <p
-              data-en="JPG, PNG or WEBP"
-              data-ta="JPG, PNG அல்லது WEBP"
+              data-en="JPG, PNG or WEBP • Maximum 10 MB"
+              data-ta="JPG, PNG அல்லது WEBP • அதிகபட்சம் 10 MB"
             >
-              JPG, PNG or WEBP
+              JPG, PNG or WEBP • Maximum 10 MB
             </p>
 
           </div>
 
+
           <img
             id="previewImage"
-            alt="Selected plant"
+            src=""
+            alt="Selected plant image"
             hidden
-          />
+          >
 
         </div>
 
 
+        <!-- CONTROLS -->
         <div class="scanner-controls">
 
           <label class="upload-button">
 
             📁
+
             <span
               data-en="Choose Image"
               data-ta="படத்தை தேர்வு செய்க"
@@ -216,7 +212,7 @@
               type="file"
               accept="image/jpeg,image/png,image/webp"
               hidden
-            />
+            >
 
           </label>
 
@@ -228,6 +224,7 @@
           >
 
             📷
+
             <span
               data-en="Camera"
               data-ta="கேமரா"
@@ -238,6 +235,16 @@
           </button>
 
 
+          <!-- Hidden camera input -->
+          <input
+            id="cameraInput"
+            type="file"
+            accept="image/*"
+            capture="environment"
+            hidden
+          >
+
+
           <button
             id="analyzeButton"
             class="analyze-button"
@@ -246,6 +253,7 @@
           >
 
             🧠
+
             <span
               data-en="Analyze with AI"
               data-ta="AI மூலம் பகுப்பாய்வு"
@@ -261,10 +269,10 @@
         <p class="scanner-note">
           🔒
           <span
-            data-en="AI model will be added in the next step."
-            data-ta="AI மாடல் அடுத்த கட்டத்தில் சேர்க்கப்படும்."
+            data-en="AI model integration will be added later."
+            data-ta="AI மாடல் பின்னர் இணைக்கப்படும்."
           >
-            AI model will be added in the next step.
+            AI model integration will be added later.
           </span>
         </p>
 
@@ -273,11 +281,11 @@
     </section>
 
 
-    <!-- =========================================
-         RESULT
-    ========================================== -->
-
-    <section id="result" class="section result-section">
+    <!-- RESULT -->
+    <section
+      id="result"
+      class="section result-section"
+    >
 
       <div class="section-heading">
 
@@ -293,7 +301,10 @@
       </div>
 
 
-      <div id="resultCard" class="result-card">
+      <div
+        id="resultCard"
+        class="result-card"
+      >
 
         <div class="result-placeholder">
 
@@ -320,10 +331,7 @@
     </section>
 
 
-    <!-- =========================================
-         FEATURES
-    ========================================== -->
-
+    <!-- FEATURES -->
     <section id="features" class="section">
 
       <div class="section-heading">
@@ -343,7 +351,6 @@
       <div class="feature-grid">
 
         <div class="feature-card">
-
           <div>🤖</div>
 
           <h3
@@ -359,12 +366,10 @@
           >
             Analyze supported crop images using an AI disease-detection model.
           </p>
-
         </div>
 
 
         <div class="feature-card">
-
           <div>🎯</div>
 
           <h3
@@ -380,12 +385,10 @@
           >
             View the model's prediction confidence.
           </p>
-
         </div>
 
 
         <div class="feature-card">
-
           <div>💊</div>
 
           <h3
@@ -401,12 +404,10 @@
           >
             Display useful crop-health management information.
           </p>
-
         </div>
 
 
         <div class="feature-card">
-
           <div>📚</div>
 
           <h3
@@ -422,7 +423,6 @@
           >
             Explore supported crops and their diseases.
           </p>
-
         </div>
 
       </div>
@@ -430,28 +430,28 @@
     </section>
 
 
-    <!-- =========================================
-         CROPS
-    ========================================== -->
-
-    <section id="crops" class="section crops-section">
+    <!-- CROPS -->
+    <section
+      id="crops"
+      class="section crops-section"
+    >
 
       <div class="section-heading">
 
         <span>🌾 CROP COVERAGE</span>
 
         <h2
-          data-en="Supported Crops"
-          data-ta="ஆதரிக்கப்படும் பயிர்கள்"
+          data-en="Target Crops"
+          data-ta="இலக்கு பயிர்கள்"
         >
-          Supported Crops
+          Target Crops
         </h2>
 
         <p
-          data-en="Our target crop categories."
-          data-ta="எங்கள் இலக்கு பயிர் வகைகள்."
+          data-en="Planned crop coverage for AgriVision AI."
+          data-ta="AgriVision AI-க்கான திட்டமிடப்பட்ட பயிர் ஆதரவு."
         >
-          Our target crop categories.
+          Planned crop coverage for AgriVision AI.
         </p>
 
       </div>
@@ -506,10 +506,7 @@
     </section>
 
 
-    <!-- =========================================
-         HISTORY
-    ========================================== -->
-
+    <!-- HISTORY -->
     <section id="history" class="section">
 
       <div class="section-heading">
@@ -526,7 +523,10 @@
       </div>
 
 
-      <div id="historyList" class="history-card">
+      <div
+        id="historyList"
+        class="history-card"
+      >
 
         <div class="history-empty">
 
@@ -553,11 +553,11 @@
     </section>
 
 
-    <!-- =========================================
-         PROJECT
-    ========================================== -->
-
-    <section id="project" class="section project-section">
+    <!-- PROJECT -->
+    <section
+      id="project"
+      class="section project-section"
+    >
 
       <div class="project-card">
 
@@ -598,10 +598,7 @@
   </main>
 
 
-  <!-- =========================================
-       FOOTER
-  ========================================== -->
-
+  <!-- FOOTER -->
   <footer>
 
     <div class="footer-brand">
