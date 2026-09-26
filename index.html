@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <meta
+    name="description"
+    content="AgriVision AI - AI-Powered Crop Health Intelligence"
+  />
+
+  <title>AgriVision AI | Plant Disease Detection</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- =========================================
+       HEADER
+  ========================================== -->
+
+  <header class="site-header">
+
+    <div class="header-content">
+
+      <div class="brand">
+
+        <div class="brand-logo">
+          🌱
+        </div>
+
+        <div>
+          <h1>AgriVision AI</h1>
+          <p>AI-Powered Crop Health Intelligence</p>
+        </div>
+
+      </div>
+
+      <button
+        id="languageButton"
+        class="language-button"
+        onclick="toggleLanguage()"
+      >
+        🌐 தமிழ்
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================================
+       NAVIGATION
+  ========================================== -->
+
+  <nav class="navbar">
+
+    <a href="#home">🏠 <span data-en="Home" data-ta="முகப்பு">Home</span></a>
+
+    <a href="#scanner">🤖 <span data-en="AI Scanner" data-ta="AI ஸ்கேனர்">AI Scanner</span></a>
+
+    <a href="#features">✨ <span data-en="Features" data-ta="அம்சங்கள்">Features</span></a>
+
+    <a href="#crops">🌾 <span data-en="Crops" data-ta="பயிர்கள்">Crops</span></a>
+
+    <a href="#history">🕘 <span data-en="History" data-ta="வரலாறு">History</span></a>
+
+  </nav>
+
+
+  <main>
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <section id="home" class="hero">
+
+      <div class="hero-content">
+
+        <div class="badge">
+          🌿 SMART AGRICULTURE • AI TECHNOLOGY
+        </div>
+
+        <h2>
+          AgriVision <span>AI</span>
+        </h2>
+
+        <h3
+          data-en="Plant Disease Detection using Artificial Intelligence"
+          data-ta="செயற்கை நுண்ணறிவைப் பயன்படுத்தி தாவர நோய் கண்டறிதல்"
+        >
+          Plant Disease Detection using Artificial Intelligence
+        </h3>
+
+        <p
+          data-en="Upload a crop image and use artificial intelligence to identify supported plant diseases."
+          data-ta="பயிரின் படத்தை பதிவேற்றி, செயற்கை நுண்ணறிவைப் பயன்படுத்தி ஆதரிக்கப்படும் தாவர நோய்களை கண்டறியுங்கள்."
+        >
+          Upload a crop image and use artificial intelligence to identify supported plant diseases.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="#scanner" class="primary-button">
+            📷
+            <span
+              data-en="Scan Your Plant"
+              data-ta="உங்கள் பயிரை ஸ்கேன் செய்யுங்கள்"
+            >
+              Scan Your Plant
+            </span>
+          </a>
+
+          <a href="#features" class="secondary-button">
+            ✨
+            <span
+              data-en="Explore Features"
+              data-ta="அம்சங்களை பார்க்க"
+            >
+              Explore Features
+            </span>
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         SCANNER
+    ========================================== -->
+
+    <section id="scanner" class="section">
+
+      <div class="section-heading">
+
+        <span>🤖 ARTIFICIAL INTELLIGENCE</span>
+
+        <h2
+          data-en="Plant Disease Scanner"
+          data-ta="தாவர நோய் ஸ்கேனர்"
+        >
+          Plant Disease Scanner
+        </h2>
+
+        <p
+          data-en="Upload a clear plant image for AI-powered analysis."
+          data-ta="AI பகுப்பாய்விற்காக தெளிவான தாவரப் படத்தை பதிவேற்றுங்கள்."
+        >
+          Upload a clear plant image for AI-powered analysis.
+        </p>
+
+      </div>
+
+
+      <div class="scanner-card">
+
+        <div
+          id="imagePreview"
+          class="image-preview"
+        >
+
+          <div id="uploadPlaceholder">
+
+            <div class="upload-icon">
+              📷
+            </div>
+
+            <h3
+              data-en="Upload Plant Image"
+              data-ta="தாவரப் படத்தை பதிவேற்றுங்கள்"
+            >
+              Upload Plant Image
+            </h3>
+
+            <p
+              data-en="JPG, PNG or WEBP"
+              data-ta="JPG, PNG அல்லது WEBP"
+            >
+              JPG, PNG or WEBP
+            </p>
+
+          </div>
+
+          <img
+            id="previewImage"
+            alt="Selected plant"
+            hidden
+          />
+
+        </div>
+
+
+        <div class="scanner-controls">
+
+          <label class="upload-button">
+
+            📁
+            <span
+              data-en="Choose Image"
+              data-ta="படத்தை தேர்வு செய்க"
+            >
+              Choose Image
+            </span>
+
+            <input
+              id="imageInput"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              hidden
+            />
+
+          </label>
+
+
+          <button
+            id="cameraButton"
+            class="camera-button"
+            type="button"
+          >
+
+            📷
+            <span
+              data-en="Camera"
+              data-ta="கேமரா"
+            >
+              Camera
+            </span>
+
+          </button>
+
+
+          <button
+            id="analyzeButton"
+            class="analyze-button"
+            type="button"
+            disabled
+          >
+
+            🧠
+            <span
+              data-en="Analyze with AI"
+              data-ta="AI மூலம் பகுப்பாய்வு"
+            >
+              Analyze with AI
+            </span>
+
+          </button>
+
+        </div>
+
+
+        <p class="scanner-note">
+          🔒
+          <span
+            data-en="AI model will be added in the next step."
+            data-ta="AI மாடல் அடுத்த கட்டத்தில் சேர்க்கப்படும்."
+          >
+            AI model will be added in the next step.
+          </span>
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         RESULT
+    ========================================== -->
+
+    <section id="result" class="section result-section">
+
+      <div class="section-heading">
+
+        <span>📊 AI RESULT</span>
+
+        <h2
+          data-en="Analysis Result"
+          data-ta="பகுப்பாய்வு முடிவு"
+        >
+          Analysis Result
+        </h2>
+
+      </div>
+
+
+      <div id="resultCard" class="result-card">
+
+        <div class="result-placeholder">
+
+          <div>🌱</div>
+
+          <h3
+            data-en="No analysis yet"
+            data-ta="இன்னும் பகுப்பாய்வு இல்லை"
+          >
+            No analysis yet
+          </h3>
+
+          <p
+            data-en="Upload an image to begin."
+            data-ta="தொடங்க ஒரு படத்தை பதிவேற்றுங்கள்."
+          >
+            Upload an image to begin.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         FEATURES
+    ========================================== -->
+
+    <section id="features" class="section">
+
+      <div class="section-heading">
+
+        <span>✨ SMART FEATURES</span>
+
+        <h2
+          data-en="AgriVision AI Features"
+          data-ta="AgriVision AI அம்சங்கள்"
+        >
+          AgriVision AI Features
+        </h2>
+
+      </div>
+
+
+      <div class="feature-grid">
+
+        <div class="feature-card">
+
+          <div>🤖</div>
+
+          <h3
+            data-en="AI Prediction"
+            data-ta="AI கணிப்பு"
+          >
+            AI Prediction
+          </h3>
+
+          <p
+            data-en="Analyze supported crop images using an AI disease-detection model."
+            data-ta="AI நோய் கண்டறிதல் மாடலைப் பயன்படுத்தி ஆதரிக்கப்படும் பயிர்களை பகுப்பாய்வு செய்யுங்கள்."
+          >
+            Analyze supported crop images using an AI disease-detection model.
+          </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+          <div>🎯</div>
+
+          <h3
+            data-en="Confidence Score"
+            data-ta="நம்பகத்தன்மை மதிப்பெண்"
+          >
+            Confidence Score
+          </h3>
+
+          <p
+            data-en="View the model's prediction confidence."
+            data-ta="மாடலின் கணிப்பு நம்பகத்தன்மையை பார்க்கலாம்."
+          >
+            View the model's prediction confidence.
+          </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+          <div>💊</div>
+
+          <h3
+            data-en="Management"
+            data-ta="மேலாண்மை"
+          >
+            Management
+          </h3>
+
+          <p
+            data-en="Display useful crop-health management information."
+            data-ta="பயிர் ஆரோக்கிய மேலாண்மை தகவல்களை பார்க்கலாம்."
+          >
+            Display useful crop-health management information.
+          </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+          <div>📚</div>
+
+          <h3
+            data-en="Disease Library"
+            data-ta="நோய் நூலகம்"
+          >
+            Disease Library
+          </h3>
+
+          <p
+            data-en="Explore supported crops and their diseases."
+            data-ta="ஆதரிக்கப்படும் பயிர்கள் மற்றும் நோய்களை ஆராயுங்கள்."
+          >
+            Explore supported crops and their diseases.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         CROPS
+    ========================================== -->
+
+    <section id="crops" class="section crops-section">
+
+      <div class="section-heading">
+
+        <span>🌾 CROP COVERAGE</span>
+
+        <h2
+          data-en="Supported Crops"
+          data-ta="ஆதரிக்கப்படும் பயிர்கள்"
+        >
+          Supported Crops
+        </h2>
+
+        <p
+          data-en="Our target crop categories."
+          data-ta="எங்கள் இலக்கு பயிர் வகைகள்."
+        >
+          Our target crop categories.
+        </p>
+
+      </div>
+
+
+      <div class="crop-grid">
+
+        <div class="crop-card">
+          <span>🌾</span>
+          <h3>Rice</h3>
+          <p>நெல்</p>
+        </div>
+
+        <div class="crop-card">
+          <span>🌾</span>
+          <h3>Wheat</h3>
+          <p>கோதுமை</p>
+        </div>
+
+        <div class="crop-card">
+          <span>🌽</span>
+          <h3>Maize</h3>
+          <p>மக்காச்சோளம்</p>
+        </div>
+
+        <div class="crop-card">
+          <span>🌿</span>
+          <h3>Cotton</h3>
+          <p>பருத்தி</p>
+        </div>
+
+        <div class="crop-card">
+          <span>🎋</span>
+          <h3>Sugarcane</h3>
+          <p>கரும்பு</p>
+        </div>
+
+        <div class="crop-card">
+          <span>🥜</span>
+          <h3>Groundnut</h3>
+          <p>நிலக்கடலை</p>
+        </div>
+
+        <div class="crop-card">
+          <span>🫘</span>
+          <h3>Pulses</h3>
+          <p>பருப்பு வகைகள்</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         HISTORY
+    ========================================== -->
+
+    <section id="history" class="section">
+
+      <div class="section-heading">
+
+        <span>🕘 SCAN HISTORY</span>
+
+        <h2
+          data-en="Recent Scans"
+          data-ta="சமீபத்திய ஸ்கேன்கள்"
+        >
+          Recent Scans
+        </h2>
+
+      </div>
+
+
+      <div id="historyList" class="history-card">
+
+        <div class="history-empty">
+
+          <div>🕘</div>
+
+          <h3
+            data-en="No scan history"
+            data-ta="ஸ்கேன் வரலாறு இல்லை"
+          >
+            No scan history
+          </h3>
+
+          <p
+            data-en="Your AI scan results will appear here."
+            data-ta="உங்கள் AI ஸ்கேன் முடிவுகள் இங்கே தோன்றும்."
+          >
+            Your AI scan results will appear here.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         PROJECT
+    ========================================== -->
+
+    <section id="project" class="section project-section">
+
+      <div class="project-card">
+
+        <div class="project-icon">
+          🎓
+        </div>
+
+        <div>
+
+          <span>FINAL YEAR PROJECT</span>
+
+          <h2>
+            AgriVision AI
+          </h2>
+
+          <p>
+            AI-Powered Crop Health Intelligence
+          </p>
+
+          <p>
+            Plant Disease Detection using Artificial Intelligence
+          </p>
+
+          <strong>
+            Tamil Nadu Agricultural University
+          </strong>
+
+          <small>
+            Agricultural College &amp; Research Institute, Vazhavachanur
+          </small>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
+
+  <footer>
+
+    <div class="footer-brand">
+      🌱 AgriVision AI
+    </div>
+
+    <p>
+      AI-Powered Crop Health Intelligence
+    </p>
+
+    <p>
+      Tamil Nadu Agricultural University • AC&amp;RI Vazhavachanur
+    </p>
+
+    <p>
+      © 2026 AgriVision AI
+    </p>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
