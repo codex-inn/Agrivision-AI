@@ -1,558 +1,161 @@
-/* =========================================
-   AGRIVISION AI
-   JAVASCRIPT
-========================================= */
-
 let selectedImage = null;
-
 let currentLanguage = "en";
 
-
-/* =========================================
-   ELEMENTS
-========================================= */
-
-const imageInput =
-  document.getElementById("imageInput");
-
-const cameraButton =
-  document.getElementById("cameraButton");
-
-const previewImage =
-  document.getElementById("previewImage");
-
-const uploadPlaceholder =
-  document.getElementById("uploadPlaceholder");
-
-const analyzeButton =
-  document.getElementById("analyzeButton");
-
-const resultCard =
-  document.getElementById("resultCard");
-
-const historyList =
-  document.getElementById("historyList");
+const imageInput = document.getElementById("imageInput");
+const cameraInput = document.getElementById("cameraInput");
+const preview = document.getElementById("imagePreview");
+const previewContainer = document.getElementById("previewContainer");
+const analyzeBtn = document.getElementById("analyzeBtn");
+const resultSection = document.getElementById("resultSection");
+const resultContent = document.getElementById("resultContent");
+const languageBtn = document.getElementById("languageBtn");
 
 
-/* =========================================
-   IMAGE UPLOAD
-========================================= */
+// ===============================
+// LANGUAGE
+// ===============================
 
-imageInput.addEventListener(
-  "change",
-  function (event) {
-
-    const file =
-      event.target.files[0];
-
-    if (!file) {
-      return;
-    }
-
-    processImage(file);
-
-  }
-);
-
-
-/* =========================================
-   CAMERA
-========================================= */
-
-cameraButton.addEventListener(
-  "click",
-  function () {
-
-    imageInput.setAttribute(
-      "capture",
-      "environment"
-    );
-
-    imageInput.click();
-
-  }
-);
-
-
-/* =========================================
-   PROCESS IMAGE
-========================================= */
-
-function processImage(file) {
-
-  const allowedTypes = [
-    "image/jpeg",
-    "image/png",
-    "image/webp"
-  ];
-
-  if (!allowedTypes.includes(file.type)) {
-
-    alert(
-      currentLanguage === "en"
-        ? "Please select a JPG, PNG or WEBP image."
-        : "JPG, PNG அல்லது WEBP படத்தை தேர்வு செய்யவும்."
-    );
-
-    return;
-  }
-
-
-  /* Maximum 10 MB */
-
-  if (file.size > 10 * 1024 * 1024) {
-
-    alert(
-      currentLanguage === "en"
-        ? "Image size must be less than 10 MB."
-        : "படத்தின் அளவு 10 MB-க்கு குறைவாக இருக்க வேண்டும்."
-    );
-
-    return;
-  }
-
-
-  selectedImage = file;
-
-
-  /* Create preview */
-
-  const imageURL =
-    URL.createObjectURL(file);
-
-  previewImage.src = imageURL;
-
-  previewImage.hidden = false;
-
-  uploadPlaceholder.style.display =
-    "none";
-
-
-  /* Enable AI button */
-
-  analyzeButton.disabled = false;
-
-
-  /* Scroll slightly */
-
-  document
-    .getElementById("scanner")
-    .scrollIntoView({
-      behavior: "smooth",
-      block: "center"
+function updateLanguage() {
+    document.querySelectorAll("[data-en][data-ta]").forEach(element => {
+        element.textContent =
+            currentLanguage === "en"
+                ? element.dataset.en
+                : element.dataset.ta;
     });
 
+    if (languageBtn) {
+        languageBtn.textContent =
+            currentLanguage === "en"
+                ? "🌐 தமிழ்"
+                : "🌐 English";
+    }
+}
+
+if (languageBtn) {
+    languageBtn.addEventListener("click", () => {
+        currentLanguage = currentLanguage === "en" ? "ta" : "en";
+        updateLanguage();
+    });
 }
 
 
-/* =========================================
-   AI ANALYSIS
-========================================= */
+// ===============================
+// IMAGE HANDLING
+// ===============================
 
-analyzeButton.addEventListener(
-  "click",
-  function () {
+function handleImage(file) {
 
-    if (!selectedImage) {
+    if (!file) return;
 
-      alert(
-        currentLanguage === "en"
-          ? "Please select an image first."
-          : "முதலில் ஒரு படத்தை தேர்வு செய்யவும்."
-      );
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
 
-      return;
+    if (!allowedTypes.includes(file.type)) {
+        alert("Please upload JPG, PNG or WEBP image.");
+        return;
     }
 
-
-    /*
-      IMPORTANT
-
-      The actual AI model will be connected
-      in the next stage.
-
-      We intentionally do NOT pretend that
-      this is a real diagnosis yet.
-    */
-
-
-    analyzeButton.disabled = true;
-
-    analyzeButton.innerHTML =
-      currentLanguage === "en"
-        ? "⏳ Preparing AI..."
-        : "⏳ AI தயாராகிறது...";
-
-
-    resultCard.innerHTML = `
-
-      <div class="result-placeholder">
-
-        <div>🧠</div>
-
-        <h3>
-          ${
-            currentLanguage === "en"
-              ? "AI Model Ready"
-              : "AI மாடல் தயாராக உள்ளது"
-          }
-        </h3>
-
-        <p>
-          ${
-            currentLanguage === "en"
-              ? "The disease-detection model will be connected next."
-              : "நோய் கண்டறிதல் AI மாடல் அடுத்த கட்டத்தில் இணைக்கப்படும்."
-          }
-        </p>
-
-      </div>
-
-    `;
-
-
-    setTimeout(
-      function () {
-
-        analyzeButton.disabled = false;
-
-        analyzeButton.innerHTML =
-          currentLanguage === "en"
-            ? "🧠 Analyze with AI"
-            : "🧠 AI மூலம் பகுப்பாய்வு";
-
-      },
-      1200
-    );
-
-  }
-);
-
-
-/* =========================================
-   LANGUAGE TOGGLE
-========================================= */
-
-function toggleLanguage() {
-
-  currentLanguage =
-    currentLanguage === "en"
-      ? "ta"
-      : "en";
-
-
-  const elements =
-    document.querySelectorAll(
-      "[data-en][data-ta]"
-    );
-
-
-  elements.forEach(
-    function (element) {
-
-      element.textContent =
-        currentLanguage === "en"
-          ? element.dataset.en
-          : element.dataset.ta;
-
+    if (file.size > 10 * 1024 * 1024) {
+        alert("Image size must be below 10 MB.");
+        return;
     }
-  );
 
+    selectedImage = file;
 
-  const languageButton =
-    document.getElementById(
-      "languageButton"
-    );
+    const imageURL = URL.createObjectURL(file);
 
+    preview.src = imageURL;
+    previewContainer.style.display = "block";
 
-  languageButton.textContent =
-    currentLanguage === "en"
-      ? "🌐 தமிழ்"
-      : "🌐 English";
+    analyzeBtn.disabled = false;
 
-
-  updateInterfaceLanguage();
-
+    resultSection.style.display = "none";
 }
 
 
-/* =========================================
-   UPDATE INTERFACE
-========================================= */
-
-function updateInterfaceLanguage() {
-
-  /*
-    These elements are not covered by
-    data-en / data-ta attributes.
-  */
-
-
-  const navLinks =
-    document.querySelectorAll(
-      ".navbar a span"
-    );
-
-
-  /*
-    Existing data attributes are handled
-    automatically above.
-  */
-
-
-  if (analyzeButton && !analyzeButton.disabled) {
-
-    analyzeButton.innerHTML =
-      currentLanguage === "en"
-        ? "🧠 Analyze with AI"
-        : "🧠 AI மூலம் பகுப்பாய்வு";
-
-  }
-
+// Gallery upload
+if (imageInput) {
+    imageInput.addEventListener("change", (event) => {
+        handleImage(event.target.files[0]);
+    });
 }
 
 
-/* =========================================
-   LOCAL STORAGE
-========================================= */
-
-function getScanHistory() {
-
-  try {
-
-    const history =
-      localStorage.getItem(
-        "agrivision_scan_history"
-      );
-
-    return history
-      ? JSON.parse(history)
-      : [];
-
-  } catch (error) {
-
-    console.error(
-      "History error:",
-      error
-    );
-
-    return [];
-
-  }
-
+// Camera upload
+if (cameraInput) {
+    cameraInput.addEventListener("change", (event) => {
+        handleImage(event.target.files[0]);
+    });
 }
 
 
-/* =========================================
-   SAVE SCAN
-========================================= */
+// ===============================
+// AI ANALYSIS
+// ===============================
 
-function saveScanHistory(scan) {
+if (analyzeBtn) {
 
-  const history =
-    getScanHistory();
+    analyzeBtn.addEventListener("click", async () => {
 
+        if (!selectedImage) {
+            alert("Please upload a leaf image first.");
+            return;
+        }
 
-  history.unshift({
+        analyzeBtn.disabled = true;
 
-    id:
-      Date.now(),
+        analyzeBtn.innerHTML = "🔄 Analyzing...";
 
-    date:
-      new Date().toISOString(),
+        resultSection.style.display = "block";
 
-    crop:
-      scan.crop || "Unknown",
+        resultContent.innerHTML = `
+            <div class="analysis-status">
 
-    disease:
-      scan.disease || "Unknown",
+                <div style="font-size:48px;">🔄</div>
 
-    confidence:
-      scan.confidence || 0
+                <h3>AI Analysis</h3>
 
-  });
+                <p>
+                    <strong>Server Busy</strong>
+                </p>
 
+                <p>
+                    The AI disease detection model is currently
+                    unavailable.
+                </p>
 
-  /*
-    Keep maximum 50 scans
-  */
-
-  const limitedHistory =
-    history.slice(0, 50);
-
-
-  localStorage.setItem(
-    "agrivision_scan_history",
-    JSON.stringify(
-      limitedHistory
-    )
-  );
-
-
-  displayHistory();
-
-}
-
-
-/* =========================================
-   DISPLAY HISTORY
-========================================= */
-
-function displayHistory() {
-
-  if (!historyList) {
-    return;
-  }
-
-
-  const history =
-    getScanHistory();
-
-
-  if (history.length === 0) {
-
-    historyList.innerHTML = `
-
-      <div class="history-empty">
-
-        <div>🕘</div>
-
-        <h3>
-          ${
-            currentLanguage === "en"
-              ? "No scan history"
-              : "ஸ்கேன் வரலாறு இல்லை"
-          }
-        </h3>
-
-        <p>
-          ${
-            currentLanguage === "en"
-              ? "Your AI scan results will appear here."
-              : "உங்கள் AI ஸ்கேன் முடிவுகள் இங்கே தோன்றும்."
-          }
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-
-  historyList.innerHTML =
-    history
-      .map(
-        function (item) {
-
-          const date =
-            new Date(
-              item.date
-            ).toLocaleString();
-
-
-          return `
-
-            <div
-              style="
-                padding:15px;
-                margin-bottom:10px;
-                border:1px solid #dce9dd;
-                border-radius:12px;
-                background:#f8fbf8;
-              "
-            >
-
-              <strong>
-                🌱 ${escapeHTML(item.crop)}
-              </strong>
-
-              <div
-                style="
-                  margin-top:4px;
-                  color:#59675e;
-                  font-size:12px;
-                "
-              >
-                🦠 ${escapeHTML(item.disease)}
-              </div>
-
-              <div
-                style="
-                  margin-top:4px;
-                  color:#18833d;
-                  font-size:11px;
-                  font-weight:700;
-                "
-              >
-                🎯 ${item.confidence}% confidence
-              </div>
-
-              <small
-                style="
-                  display:block;
-                  margin-top:5px;
-                  color:#89948c;
-                "
-              >
-                ${date}
-              </small>
+                <p>
+                    Please try again later.
+                </p>
 
             </div>
+        `;
 
-          `;
+        // Model will be connected here later.
 
-        }
-      )
-      .join("");
+        setTimeout(() => {
 
+            analyzeBtn.disabled = false;
+
+            analyzeBtn.innerHTML =
+                currentLanguage === "en"
+                    ? "🔍 Analyze Image"
+                    : "🔍 படத்தை பகுப்பாய்வு செய்";
+
+        }, 1500);
+    });
 }
 
 
-/* =========================================
-   HTML SAFETY
-========================================= */
+// ===============================
+// INITIAL STATE
+// ===============================
 
-function escapeHTML(value) {
-
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-
+if (analyzeBtn) {
+    analyzeBtn.disabled = true;
 }
 
-
-/* =========================================
-   INITIALIZE
-========================================= */
-
-displayHistory();
-
-
-/* =========================================
-   CLEANUP
-========================================= */
-
-window.addEventListener(
-  "beforeunload",
-  function () {
-
-    if (
-      previewImage.src &&
-      previewImage.src.startsWith(
-        "blob:"
-      )
-    ) {
-
-      URL.revokeObjectURL(
-        previewImage.src
-      );
-
-    }
-
-  }
-);
+updateLanguage();
