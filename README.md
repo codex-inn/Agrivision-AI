@@ -281,8 +281,7 @@ STATUS
 AI screening result
 ```
 
-The confidence value is produced by the deployed model. The 3D animation is only a presentation layer and does not change the model prediction.
-
+The confidence value is produced by the deployed model. 
 ---
 
 ## 🧩 System Architecture
@@ -306,7 +305,7 @@ The confidence value is produced by the deployed model. The 3D animation is only
                          │
               ┌──────────┴──────────┐
               │                     │
-        3D Scan Animation      Optional Ollama
+        Optional Ollama
               │                     │
               ▼                     ▼
           User Result        Offline Explanation
