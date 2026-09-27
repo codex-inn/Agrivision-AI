@@ -1,0 +1,12 @@
+{
+  "crops": [
+    "Rice",
+    "Wheat",
+    "Maize",
+    "Cotton",
+    "Sugarcane",
+    "Groundnut",
+    "Pulses (Chickpea)"
+  ],
+  "note": "Pulses is represented by Chickpea in the first real model. Do not claim generic pulse recognition until additional pulse crops are trained."
+}
