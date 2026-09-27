@@ -15,6 +15,15 @@ function App() {
   });
   const [historySearch, setHistorySearch] = useState("");
   const [historyCrop, setHistoryCrop] = useState("All Crops");
+  const [tnauData, setTnauData] = useState(null);
+  const [selectedCrop, setSelectedCrop] = useState(null);
+
+  useEffect(() => {
+    fetch("./data/tnau_diseases.json")
+      .then((response) => response.json())
+      .then((data) => setTnauData(data))
+      .catch((error) => console.warn("TNAU disease library unavailable:", error));
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(
@@ -24,6 +33,8 @@ function App() {
   }, [scanHistory]);
 
   const clearHistory = () => setScanHistory([]);
+
+  const cropLibrary = tnauData?.crops || [];
 
   const handleImage = (event) => {
     const file = event.target.files?.[0];
@@ -430,7 +441,7 @@ function App() {
             </h1>
 
             <h2>
-              Plant Disease Detection using Artificial Intelligence
+              AI-Powered Crop Health Intelligence
             </h2>
 
             <div className="tamil-line">
@@ -1087,42 +1098,43 @@ function App() {
 
           <div className="crop-grid">
 
-            <div className="crop-card">
-              <span>🌾</span>
-              <h3>Rice</h3>
-            </div>
-
-            <div className="crop-card">
-              <span>🌾</span>
-              <h3>Wheat</h3>
-            </div>
-
-            <div className="crop-card">
-              <span>🌽</span>
-              <h3>Maize</h3>
-            </div>
-
-            <div className="crop-card">
-              <span>🌿</span>
-              <h3>Cotton</h3>
-            </div>
-
-            <div className="crop-card">
-              <span>🎋</span>
-              <h3>Sugarcane</h3>
-            </div>
-
-            <div className="crop-card">
-              <span>🥜</span>
-              <h3>Groundnut</h3>
-            </div>
-
-            <div className="crop-card">
-              <span>🫘</span>
-              <h3>Pulses</h3>
-            </div>
+            {cropLibrary.map((crop) => (
+              <button
+                type="button"
+                className="crop-card"
+                key={crop.name}
+                onClick={() => setSelectedCrop(crop)}
+              >
+                <span>{crop.emoji}</span>
+                <h3>{crop.name}</h3>
+                <small>{crop.diseases.length} diseases</small>
+              </button>
+            ))}
 
           </div>
+
+          {selectedCrop && (
+            <div className="disease-library-panel">
+              <div className="disease-library-header">
+                <div>
+                  <span>{selectedCrop.emoji}</span>
+                  <h3>{selectedCrop.name} Diseases</h3>
+                </div>
+                <button type="button" onClick={() => setSelectedCrop(null)}>✕</button>
+              </div>
+              <div className="disease-list">
+                {selectedCrop.diseases.map((disease) => (
+                  <span key={disease}>{disease}</span>
+                ))}
+              </div>
+              <p className="tnau-source">
+                Source: TNAU Crop Protection / Crop Diseases reference library.
+              </p>
+              <a href={tnauData?.sourceUrl} target="_blank" rel="noreferrer">
+                View TNAU source ↗
+              </a>
+            </div>
+          )}
 
         </section>
 
@@ -1136,9 +1148,7 @@ function App() {
 
           <div className="project-main">
 
-            <span>
-              🎓 FINAL YEAR PROJECT
-            </span>
+
 
             <h2>
               AgriVision AI
@@ -1149,7 +1159,7 @@ function App() {
             </h3>
 
             <p>
-              A B.Sc. Agriculture Final Year Project focused on artificial intelligence for plant health and disease detection.
+              An agriculture-focused artificial intelligence project for plant health and disease detection.
             </p>
 
 
@@ -1219,7 +1229,7 @@ function App() {
         <div className="footer-line"></div>
 
         <strong>
-          🎓 Final Year Project
+          🎓 B.Sc. Agriculture – Final Year
         </strong>
 
         <span>
@@ -1236,7 +1246,7 @@ function App() {
         </small>
 
         <div className="copyright">
-          © 2026 AgriVision AI • Final Year Project
+          © 2026 AgriVision AI • AI-Powered Crop Health Intelligence
         </div>
 
       </footer>
