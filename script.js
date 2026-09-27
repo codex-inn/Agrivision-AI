@@ -781,6 +781,35 @@ function App() {
                     <p style={{ color: "#174b29", fontSize: "14px", margin: "8px 0" }}>
                       Confidence: <strong>{uploadResult.confidence}</strong>
                     </p>
+
+                    {(() => {
+                      const cropInfo = cropLibrary.find(
+                        (item) =>
+                          item.name === uploadResult.crop ||
+                          (item.name === "Pulses (Chickpea)" && uploadResult.crop === "Pulses")
+                      );
+                      if (!cropInfo) return null;
+                      const diseaseMatch = cropInfo.diseases.find(
+                        (item) => item.toLowerCase() === String(uploadResult.disease).toLowerCase()
+                      );
+                      return (
+                        <div className="tnau-result-reference">
+                          <div className="tnau-result-title">📚 TNAU Disease Reference</div>
+                          <p>
+                            {diseaseMatch
+                              ? "This predicted disease is available in the AgriVision TNAU reference library."
+                              : "Crop reference found in the TNAU disease library. Verify the exact disease name with the source before field treatment."}
+                          </p>
+                          <a
+                            href={tnauData?.sourceUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Open TNAU Crop Disease Portal ↗
+                          </a>
+                        </div>
+                      );
+                    })()}
                   </>
                 ) : (
                   <>
