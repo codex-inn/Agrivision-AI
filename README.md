@@ -157,15 +157,6 @@ The original training dataset is not stored in this repository. The repository c
 
 ---
 
-## 🏫 Academic Project
-
-**AgriVision AI**  
-**AI-Powered Crop Health Intelligence**
-
-Agricultural College & Research Institute, Vazhavachanur (AC&RI VVNR)
-
-
----
 
 ## 📌 Current Status
 
