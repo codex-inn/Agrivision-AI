@@ -1083,6 +1083,9 @@ function App() {
         </section>
 
 
+      </main>
+
+
       {/* FOOTER */}
 
       <footer>
