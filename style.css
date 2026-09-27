@@ -3157,3 +3157,67 @@ footer small {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* =====================================================
+   TNAU DISEASE LIBRARY
+===================================================== */
+.crop-card {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+  width: 100%;
+}
+.crop-card small {
+  display: block;
+  margin-top: 7px;
+  color: #6f7c73;
+  font-size: 12px;
+}
+.disease-library-panel {
+  max-width: 1050px;
+  margin: 28px auto 0;
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #dfe9e1;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(23,75,41,.08);
+}
+.disease-library-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+.disease-library-header > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.disease-library-header span { font-size: 30px; }
+.disease-library-header h3 { margin: 0; color: #174b29; }
+.disease-library-header button {
+  border: 0;
+  background: #edf5ef;
+  color: #174b29;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.disease-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+.disease-list span {
+  padding: 9px 12px;
+  background: #f3f8f4;
+  border: 1px solid #dce9df;
+  border-radius: 999px;
+  color: #285b38;
+  font-size: 13px;
+}
+.tnau-source { margin: 20px 0 8px; color: #748078; font-size: 12px; }
+.tnau-source + a { color: #1d6b36; font-size: 13px; font-weight: 700; }
