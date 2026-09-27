@@ -88,7 +88,7 @@ function App() {
         const labelsUrl = "./models/agrivision_tfjs/labels.json";
 
         const [model, labelsResponse] = await Promise.all([
-          window.tf.loadLayersModel(modelUrl),
+          window.tf.loadGraphModel(modelUrl),
           fetch(labelsUrl)
         ]);
 
@@ -107,7 +107,7 @@ function App() {
         setAiLabels(labels);
         setAiModelStatus("ready");
       } catch (error) {
-        console.warn("AgriVision AI model is not deployed yet:", error);
+        console.warn("AgriVision AI model could not be loaded:", error);
         if (active) setAiModelStatus("unavailable");
       }
     };
@@ -131,7 +131,7 @@ function App() {
         serverBusy: false,
         modelUnavailable: true,
         message:
-          "The real AI model is not deployed yet. Please deploy the trained AgriVision model before analysing images."
+          "The real AI model is currently unavailable. Please try again after the model finishes loading."
       });
       return;
     }
@@ -176,9 +176,10 @@ function App() {
             "The AI could not identify this image reliably. Please upload a clearer leaf image."
         });
       } else {
+        const classInfo = aiLabels.classes?.[bestIndex];
         const parts = label.split("___");
-        const crop = parts.length > 1 ? parts[0] : "Unknown";
-        const disease = parts.length > 1 ? parts.slice(1).join("___") : label;
+        const crop = classInfo?.crop || (parts.length > 1 ? parts[0] : "Unknown");
+        const disease = classInfo?.disease || (parts.length > 1 ? parts.slice(1).join("___") : label);
 
         const result = {
           success: true,
