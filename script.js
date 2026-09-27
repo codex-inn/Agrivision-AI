@@ -1089,12 +1089,6 @@ function App() {
 
         <div className="footer-brand">
           🌱 AgriVision AI
-          {/* FOOTER */}
-
-      <footer>
-
-        <div className="footer-brand">
-          🌱 AgriVision AI
         </div>
 
         <p>
@@ -1126,39 +1120,7 @@ function App() {
 
       </footer>
 
-    </div>
-
-        <p>
-          AI-Powered Crop Health Intelligence
-        </p>
-
-        <div className="footer-line"></div>
-
-        <strong>
-          🎓 Final Year Project
-        </strong>
-
-        <span>
-          B.Sc. Agriculture
-        </span>
-
-        <small>
-          🏫 Agricultural College & Research Institute,
-          Vazhavachanur (VVNR)
-        </small>
-
-        <small>
-          Tamil Nadu Agricultural University
-        </small>
-
-        <div className="copyright">
-          © 2026 AgriVision AI • Final Year Project
-        </div>
-
-      </footer>
-
-    </div>
-  );
+    </div>  );
 }
 
 
