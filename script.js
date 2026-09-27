@@ -355,8 +355,6 @@ function App() {
 
         {/* SCANNER */}
 
-/* EXACT SCANNER DESIGN — matches reference screenshot */
-
         <section
           id="scanner"
           className="section scanner-section"
