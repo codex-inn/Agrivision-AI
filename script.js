@@ -355,15 +355,17 @@ function App() {
 
         {/* SCANNER */}
 
+/* EXACT SCANNER DESIGN — matches reference screenshot */
+
         <section
           id="scanner"
           className="section scanner-section"
         >
 
-          <div className="section-heading">
+          <div className="section-title">
 
             <span>
-              AI CROP HEALTH
+              🤖 ARTIFICIAL INTELLIGENCE
             </span>
 
             <h2>
@@ -379,31 +381,47 @@ function App() {
 
           <div className="scanner-layout">
 
+            {/* IMAGE UPLOAD AREA */}
+
             <div className="upload-card">
 
-              <div className="upload-icon">
-                🌱
-              </div>
+              {image ? (
 
-              <h3>
-                Upload Plant Leaf
-              </h3>
-
-              <p>
-                JPG, PNG or WEBP • Maximum 10 MB
-              </p>
-
-
-              {image && (
-
-                <div className="image-preview">
+                <>
 
                   <img
                     src={image}
-                    alt="Selected plant"
+                    alt="Uploaded plant leaf"
+                    className="uploaded-image"
                   />
 
-                </div>
+                  <button
+                    type="button"
+                    className="remove-image-button"
+                    onClick={clearImage}
+                  >
+                    ❌ Remove Image
+                  </button>
+
+                </>
+
+              ) : (
+
+                <>
+
+                  <div className="upload-icon">
+                    📷
+                  </div>
+
+                  <h3>
+                    Upload Leaf Image
+                  </h3>
+
+                  <p>
+                    Choose a clear image of the affected leaf.
+                  </p>
+
+                </>
 
               )}
 
@@ -416,7 +434,7 @@ function App() {
 
                   <input
                     type="file"
-                    accept="image/jpeg,image/png,image/webp"
+                    accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
                     onChange={handleImage}
                     hidden
                   />
@@ -441,85 +459,167 @@ function App() {
               </div>
 
 
-              {image && (
+              <button
+                type="button"
+                className="analyze-button"
+                onClick={handleUpload}
+                disabled={
+                  !selectedFile ||
+                  uploading
+                }
+              >
 
-                <button
-                  className="analyze-button"
-                  onClick={handleUpload}
-                  disabled={uploading}
-                >
+                {uploading
+                  ? lang.analyzing
+                  : lang.analyze}
 
-                  {uploading
-                    ? lang.analyzing
-                    : lang.analyze}
-
-                </button>
-
-              )}
+              </button>
 
 
-              {image && (
-
-                <button
-                  className="clear-button"
-                  onClick={clearImage}
-                >
-                  ✕ Clear Image
-                </button>
-
-              )}
+              <small>
+                JPG • JPEG • PNG • WEBP • Max 10 MB
+              </small>
 
             </div>
 
 
-            {/* SERVER BUSY RESULT */}
+            {/* HOW IT WORKS */}
 
-            {uploadResult?.serverBusy && (
+            <div className="workflow-card">
 
-              <div className="ai-result-dashboard">
+              <h3>
+                {lang.how}
+              </h3>
 
-                <div className="result-dashboard-header">
+              <div className="workflow-step">
+                <b>01</b>
+                <span>
+                  {lang.uploadStep}
+                </span>
+              </div>
 
-                  <h2>
-                    {lang.result}
-                  </h2>
+              <div className="workflow-step">
+                <b>02</b>
+                <span>
+                  {lang.aiStep}
+                </span>
+              </div>
 
-                  <span className="analysis-complete-badge">
-                    SERVER BUSY
-                  </span>
+              <div className="workflow-step">
+                <b>03</b>
+                <span>
+                  {lang.diseaseStep}
+                </span>
+              </div>
 
+              <div className="workflow-step">
+                <b>04</b>
+                <span>
+                  {lang.managementStep}
+                </span>
+              </div>
+
+
+              {/* AI CONNECTION */}
+
+              <div className="connection-box">
+
+                <div className="connection-title">
+                  🔗 AI CONNECTION
                 </div>
 
-                <div className="result-main-card">
+                <div className="connection-flow">
+                  AgriVision AI <span>→</span> AI Processing
+                </div>
 
-                  <div className="status-icon">
-                    ⚠️
-                  </div>
-
-                  <h3>
-                    AI Analysis Temporarily Unavailable
-                  </h3>
-
-                  <p>
-                    The AI disease detection service is
-                    currently busy.
-                  </p>
-
-                  <p>
-                    Please try again later.
-                  </p>
-
-                  <div className="model-badge">
-                    SERVER BUSY
-                  </div>
-
+                <div className="connection-details">
+                  Disease detection service
+                  <br />
+                  Status: Preparing AI model
                 </div>
 
               </div>
 
-            )}
+            </div>
 
           </div>
+
+
+          {/* SERVER BUSY RESULT */}
+
+          {uploadResult?.serverBusy && (
+
+            <div className="ai-result-dashboard">
+
+              <div className="result-dashboard-header">
+
+                <div className="result-header-left">
+
+                  <div className="result-ai-icon">
+                    🤖
+                  </div>
+
+                  <div>
+
+                    <div className="result-eyebrow">
+                      AI ANALYSIS
+                    </div>
+
+                    <h2>
+                      AI Analysis Result
+                    </h2>
+
+                    <p>
+                      The analysis service is temporarily unavailable.
+                    </p>
+
+                  </div>
+
+                </div>
+
+                <div className="analysis-complete-badge">
+                  SERVER BUSY
+                </div>
+
+              </div>
+
+
+              <div
+                className="result-section-card"
+                style={{
+                  marginTop: "20px",
+                  textAlign: "center"
+                }}
+              >
+
+                <div style={{ fontSize: "36px" }}>
+                  ⚠️
+                </div>
+
+                <h3
+                  style={{
+                    color: "#174b29",
+                    margin: "10px 0 6px"
+                  }}
+                >
+                  AI Disease Detection Server Busy
+                </h3>
+
+                <p
+                  style={{
+                    color: "#748078",
+                    fontSize: "12px",
+                    margin: 0
+                  }}
+                >
+                  Please try again later.
+                </p>
+
+              </div>
+
+            </div>
+
+          )}
 
         </section>
 
