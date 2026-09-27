@@ -1,0 +1,123 @@
+{
+  "labels": [
+    "Cotton Bacterial Blight",
+    "Cotton Curl Virus",
+    "Cotton Healthy Leaf",
+    "Groundnut healthy leaf",
+    "Groundnut late leaf spot",
+    "Groundnut nutrition deficiency",
+    "Maize leaf spot",
+    "Maize streak virus",
+    "Rice___Brown_Spot",
+    "Rice___Healthy",
+    "Rice___Leaf_Blast",
+    "Sugarcane Brown Spot",
+    "Sugarcane Grassy shoot",
+    "Sugarcane Healthy Leaves",
+    "Wheat___Brown_Rust",
+    "Wheat___Healthy",
+    "Wheat___Yellow_Rust",
+    "healthy_maize"
+  ],
+  "classes": [
+    {
+      "label": "Cotton Bacterial Blight",
+      "crop": "Cotton",
+      "disease": "Bacterial Blight"
+    },
+    {
+      "label": "Cotton Curl Virus",
+      "crop": "Cotton",
+      "disease": "Cotton Curl Virus"
+    },
+    {
+      "label": "Cotton Healthy Leaf",
+      "crop": "Cotton",
+      "disease": "Healthy"
+    },
+    {
+      "label": "Groundnut healthy leaf",
+      "crop": "Groundnut",
+      "disease": "Healthy"
+    },
+    {
+      "label": "Groundnut late leaf spot",
+      "crop": "Groundnut",
+      "disease": "Late Leaf Spot"
+    },
+    {
+      "label": "Groundnut nutrition deficiency",
+      "crop": "Groundnut",
+      "disease": "Nutrition Deficiency"
+    },
+    {
+      "label": "Maize leaf spot",
+      "crop": "Maize",
+      "disease": "Leaf Spot"
+    },
+    {
+      "label": "Maize streak virus",
+      "crop": "Maize",
+      "disease": "Streak Virus"
+    },
+    {
+      "label": "Rice___Brown_Spot",
+      "crop": "Rice",
+      "disease": "Brown Spot"
+    },
+    {
+      "label": "Rice___Healthy",
+      "crop": "Rice",
+      "disease": "Healthy"
+    },
+    {
+      "label": "Rice___Leaf_Blast",
+      "crop": "Rice",
+      "disease": "Leaf Blast"
+    },
+    {
+      "label": "Sugarcane Brown Spot",
+      "crop": "Sugarcane",
+      "disease": "Brown Spot"
+    },
+    {
+      "label": "Sugarcane Grassy shoot",
+      "crop": "Sugarcane",
+      "disease": "Grassy Shoot Disease"
+    },
+    {
+      "label": "Sugarcane Healthy Leaves",
+      "crop": "Sugarcane",
+      "disease": "Healthy"
+    },
+    {
+      "label": "Wheat___Brown_Rust",
+      "crop": "Wheat",
+      "disease": "Brown Rust"
+    },
+    {
+      "label": "Wheat___Healthy",
+      "crop": "Wheat",
+      "disease": "Healthy"
+    },
+    {
+      "label": "Wheat___Yellow_Rust",
+      "crop": "Wheat",
+      "disease": "Yellow Rust"
+    },
+    {
+      "label": "healthy_maize",
+      "crop": "Maize",
+      "disease": "Healthy"
+    }
+  ],
+  "crops": [
+    "Rice",
+    "Wheat",
+    "Maize",
+    "Cotton",
+    "Sugarcane",
+    "Groundnut"
+  ],
+  "note": "Real AgriVision AI model trained on 18 classes across 6 crops. Chickpea/Pulses is not included in this model."
+}
