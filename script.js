@@ -6,6 +6,24 @@ function App() {
   const [uploading, setUploading] = useState(false);
   const [uploadResult, setUploadResult] = useState(null);
   const [language, setLanguage] = useState("en");
+  const [scanHistory, setScanHistory] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("agrivision_scan_history") || "[]");
+    } catch {
+      return [];
+    }
+  });
+  const [historySearch, setHistorySearch] = useState("");
+  const [historyCrop, setHistoryCrop] = useState("All Crops");
+
+  useEffect(() => {
+    localStorage.setItem(
+      "agrivision_scan_history",
+      JSON.stringify(scanHistory)
+    );
+  }, [scanHistory]);
+
+  const clearHistory = () => setScanHistory([]);
 
   const handleImage = (event) => {
     const file = event.target.files?.[0];
@@ -319,7 +337,7 @@ function App() {
                 href="#diseases"
                 className="secondary-button"
               >
-                🌱 Explore Diseases
+                ✨ Explore AI Features
               </a>
 
             </div>
@@ -330,22 +348,61 @@ function App() {
 
           <div className="ai-card">
 
-            <div className="ai-card-header">
-              <span>🤖 AI ANALYSIS</span>
-              <span className="status-dot">●</span>
+            <div className="ai-heading">
+
+              <div className="ai-symbol">
+                AI
+              </div>
+
+              <div>
+                <h3>
+                  AI ANALYSIS
+                </h3>
+
+                <p>
+                  Plant Health Detection
+                </p>
+              </div>
+
             </div>
 
-            <div className="sample-result">
-              SAMPLE RESULT
+
+            <div className="analysis-box">
+
+              <div className="leaf-preview">
+                🌿
+              </div>
+
+              <div className="analysis-text">
+
+                <small>
+                  SAMPLE RESULT
+                </small>
+
+                <h3>
+                  Early Blight
+                </h3>
+
+                <strong>
+                  Confidence: 95%
+                </strong>
+
+              </div>
+
             </div>
 
-            <h3>
-              🌿 Early Blight
-            </h3>
 
-            <div className="confidence">
-              Confidence
-              <strong>95%</strong>
+            <div className="management">
+
+              <h4>
+                ✓ Suggested Management
+              </h4>
+
+              <p>✓ Remove infected leaves</p>
+              <p>✓ Improve field sanitation</p>
+              <p>✓ Follow recommended management</p>
+              <p>✓ Maintain proper crop rotation</p>
+
             </div>
 
           </div>
@@ -622,59 +679,165 @@ function App() {
         </section>
 
 
-        {/* FEATURES */}
+        {/* HISTORY */}
 
         <section
-          id="features"
-          className="section"
+          id="history"
+          className="section history-section"
         >
 
-          <div className="section-heading">
+          <div className="section-title">
 
             <span>
-              SMART AGRICULTURE
+              🕘 YOUR AI SCANS
             </span>
 
             <h2>
-              AI-Powered Features
+              Scan History
             </h2>
+
+            <p>
+              Previous AgriVision AI plant analyses are stored locally in this browser.
+            </p>
 
           </div>
 
 
-          <div className="features-grid">
+          <div className="history-container">
 
-            <div className="feature-card">
-              <span>🤖</span>
-              <h3>AI Prediction</h3>
-              <p>
-                AI-based crop disease identification.
-              </p>
+            <div className="history-toolbar">
+
+              <input
+                type="text"
+                placeholder="🔎 Search crop or disease..."
+                value={historySearch}
+                onChange={(e) => setHistorySearch(e.target.value)}
+              />
+
+              <select
+                value={historyCrop}
+                onChange={(e) => setHistoryCrop(e.target.value)}
+              >
+                <option>All Crops</option>
+                <option>Rice</option>
+                <option>Wheat</option>
+                <option>Maize</option>
+                <option>Cotton</option>
+                <option>Sugarcane</option>
+                <option>Groundnut</option>
+                <option>Pulses</option>
+              </select>
+
+              <button
+                type="button"
+                className="clear-history-button"
+                onClick={clearHistory}
+                disabled={!scanHistory.length}
+              >
+                🗑️ Clear History
+              </button>
+
             </div>
 
-            <div className="feature-card">
-              <span>🎯</span>
-              <h3>Confidence Score</h3>
-              <p>
-                Model confidence will be displayed
-                with the prediction.
-              </p>
+
+            <div className="history-stats">
+
+              <div>
+                <span>TOTAL SCANS</span>
+                <strong>{scanHistory.length}</strong>
+              </div>
+
+              <div>
+                <span>IDENTIFIED</span>
+                <strong>0</strong>
+              </div>
+
+              <div>
+                <span>FILTERED RESULTS</span>
+                <strong>{scanHistory.length}</strong>
+              </div>
+
             </div>
 
-            <div className="feature-card">
-              <span>💊</span>
-              <h3>Management</h3>
-              <p>
-                Crop health management information.
-              </p>
-            </div>
 
-            <div className="feature-card">
-              <span>📚</span>
-              <h3>Disease Library</h3>
-              <p>
-                Crop and disease information library.
-              </p>
+            {scanHistory.length === 0 ? (
+
+              <div className="empty-history">
+
+                <div>🌱</div>
+
+                <h3>
+                  No scan history yet
+                </h3>
+
+                <p>
+                  Analyze a plant image and the result will appear here.
+                </p>
+
+              </div>
+
+            ) : (
+
+              <div className="history-list">
+
+                {scanHistory
+                  .filter((item) => {
+                    const q = historySearch.toLowerCase();
+                    const matchesSearch =
+                      !q ||
+                      item.crop?.toLowerCase().includes(q) ||
+                      item.disease?.toLowerCase().includes(q);
+
+                    const matchesCrop =
+                      historyCrop === "All Crops" ||
+                      item.crop === historyCrop;
+
+                    return matchesSearch && matchesCrop;
+                  })
+                  .map((item) => (
+
+                    <div
+                      className="history-item"
+                      key={item.id}
+                    >
+
+                      <div className="history-date">
+                        {item.date}
+                      </div>
+
+                      <div className="history-main">
+
+                        <div className="history-crop">
+                          <span>🌱</span>
+                          <div>
+                            <small>CROP</small>
+                            <strong>{item.crop}</strong>
+                          </div>
+                        </div>
+
+                        <div className="history-disease">
+                          <small>RESULT</small>
+                          <strong>{item.disease || "Not identified"}</strong>
+                        </div>
+
+                        <div className="history-confidence">
+                          <small>CONFIDENCE</small>
+                          <strong>{item.confidence || "—"}</strong>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  ))}
+
+              </div>
+
+            )}
+
+
+            <div className="history-privacy">
+              🔒 Privacy: Scan history is stored only in this browser using localStorage. The backend temporary image file is not stored as part of the history.
             </div>
 
           </div>
@@ -682,22 +845,124 @@ function App() {
         </section>
 
 
-        {/* CROPS */}
+        {/* FEATURES */}
 
         <section
-          id="diseases"
-          className="section"
+          id="features"
+          className="features-section"
         >
 
-          <div className="section-heading">
+          <div className="section-title">
 
             <span>
-              TARGET CROPS
+              ✨ SMART PLANT HEALTH
             </span>
 
             <h2>
-              Supported Crops
+              AgriVision AI Features
             </h2>
+
+            <p>
+              Designed for intelligent plant health analysis.
+            </p>
+
+          </div>
+
+
+          <div className="features-grid">
+
+            <div className="feature-card">
+
+              <div className="feature-icon">
+                🤖
+              </div>
+
+              <h3>
+                AI Prediction
+              </h3>
+
+              <p>
+                Analyze plant leaf images using artificial intelligence.
+              </p>
+
+            </div>
+
+
+            <div className="feature-card">
+
+              <div className="feature-icon">
+                🎯
+              </div>
+
+              <h3>
+                Confidence Score
+              </h3>
+
+              <p>
+                Display prediction confidence for detected diseases.
+              </p>
+
+            </div>
+
+
+            <div className="feature-card">
+
+              <div className="feature-icon">
+                💊
+              </div>
+
+              <h3>
+                Management
+              </h3>
+
+              <p>
+                Provide useful disease management information.
+              </p>
+
+            </div>
+
+
+            <div className="feature-card">
+
+              <div className="feature-icon">
+                📚
+              </div>
+
+              <h3>
+                Disease Library
+              </h3>
+
+              <p>
+                Explore symptoms and prevention information.
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* CROP LIBRARY */}
+
+        <section
+          id="diseases"
+          className="section disease-section"
+        >
+
+          <div className="section-title">
+
+            <span>
+              🌿 PLANT HEALTH KNOWLEDGE
+            </span>
+
+            <h2>
+              🌾 Crop Library
+            </h2>
+
+            <p>
+              Explore the crops supported by AgriVision AI.
+            </p>
 
           </div>
 
@@ -735,7 +1000,7 @@ function App() {
             </div>
 
             <div className="crop-card">
-              <span>🌱</span>
+              <span>🫘</span>
               <h3>Pulses</h3>
             </div>
 
@@ -753,16 +1018,20 @@ function App() {
 
           <div className="project-main">
 
+            <span>
+              🎓 FINAL YEAR PROJECT
+            </span>
+
             <h2>
               AgriVision AI
             </h2>
 
             <h3>
-              AI-Powered Crop Health Intelligence
+              Plant Disease Detection using Artificial Intelligence
             </h3>
 
             <p>
-              An agriculture-focused artificial intelligence project for plant health and disease detection.
+              A B.Sc. Agriculture Final Year Project focused on artificial intelligence for plant health and disease detection.
             </p>
 
 
@@ -814,51 +1083,50 @@ function App() {
         </section>
 
 
-        {/* ABOUT / CAMPUS */}
-
-        <section
-          id="about"
-          className="campus-section"
-        >
-
-          <div className="campus-overlay"></div>
-
-          <div className="campus-content">
-
-            <span>
-              AGRICULTURAL COLLEGE & RESEARCH INSTITUTE
-            </span>
-
-            <h2>
-              Vazhavachanur
-            </h2>
-
-            <h3>
-              Tamil Nadu Agricultural University
-            </h3>
-
-            <p>
-              AC&RI • VVNR
-            </p>
-
-            <div className="tamil-campus">
-              தமிழ்நாடு வேளாண்மைப் பல்கலைக்கழகம்
-            </div>
-
-          </div>
-
-        </section>
-
-      </main>
-
-
       {/* FOOTER */}
 
       <footer>
 
         <div className="footer-brand">
           🌱 AgriVision AI
+          {/* FOOTER */}
+
+      <footer>
+
+        <div className="footer-brand">
+          🌱 AgriVision AI
         </div>
+
+        <p>
+          AI-Powered Crop Health Intelligence
+        </p>
+
+        <div className="footer-line"></div>
+
+        <strong>
+          🎓 Final Year Project
+        </strong>
+
+        <span>
+          B.Sc. Agriculture
+        </span>
+
+        <small>
+          🏫 Agricultural College & Research Institute,
+          Vazhavachanur (VVNR)
+        </small>
+
+        <small>
+          Tamil Nadu Agricultural University
+        </small>
+
+        <div className="copyright">
+          © 2026 AgriVision AI • Final Year Project
+        </div>
+
+      </footer>
+
+    </div>
 
         <p>
           AI-Powered Crop Health Intelligence
