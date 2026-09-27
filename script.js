@@ -61,29 +61,149 @@ function App() {
    * For now, NEVER generate a fake diagnosis.
    */
 
+  const [aiModel, setAiModel] = useState(null);
+  const [aiLabels, setAiLabels] = useState(null);
+  const [aiModelStatus, setAiModelStatus] = useState("loading");
+
+  useEffect(() => {
+    let active = true;
+
+    const loadAIModel = async () => {
+      try {
+        setAiModelStatus("loading");
+        if (!window.tf) throw new Error("TensorFlow.js failed to load.");
+
+        const modelUrl = "./models/agrivision_tfjs/model.json";
+        const labelsUrl = "./models/agrivision_tfjs/labels.json";
+
+        const [model, labelsResponse] = await Promise.all([
+          window.tf.loadLayersModel(modelUrl),
+          fetch(labelsUrl)
+        ]);
+
+        if (!labelsResponse.ok) {
+          throw new Error("AI labels file is unavailable.");
+        }
+
+        const labels = await labelsResponse.json();
+
+        if (!active) {
+          model.dispose();
+          return;
+        }
+
+        setAiModel(model);
+        setAiLabels(labels);
+        setAiModelStatus("ready");
+      } catch (error) {
+        console.warn("AgriVision AI model is not deployed yet:", error);
+        if (active) setAiModelStatus("unavailable");
+      }
+    };
+
+    loadAIModel();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const handleUpload = async () => {
     if (!selectedFile) {
       alert("Please select a plant image first 🌱");
       return;
     }
 
+    if (!aiModel || !aiLabels) {
+      setUploadResult({
+        success: false,
+        serverBusy: false,
+        modelUnavailable: true,
+        message:
+          "The real AI model is not deployed yet. Please deploy the trained AgriVision model before analysing images."
+      });
+      return;
+    }
+
     setUploading(true);
     setUploadResult(null);
 
-    // Temporary server-busy simulation
-    await new Promise((resolve) => {
-      setTimeout(resolve, 1200);
-    });
+    try {
+      const img = new Image();
+      img.src = image;
 
-    setUploadResult({
-      success: false,
-      serverBusy: true,
-      message:
-        "The AI disease detection service is currently busy. Please try again later."
-    });
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
 
-    setUploading(false);
+      const prediction = window.tf.tidy(() => {
+        const tensor = window.tf.browser
+          .fromPixels(img)
+          .resizeBilinear([224, 224])
+          .toFloat()
+          .div(255)
+          .expandDims(0);
+
+        return aiModel.predict(tensor).dataSync();
+      });
+
+      let bestIndex = 0;
+      for (let i = 1; i < prediction.length; i++) {
+        if (prediction[i] > prediction[bestIndex]) bestIndex = i;
+      }
+
+      const confidence = prediction[bestIndex];
+      const label =
+        aiLabels.labels?.[bestIndex] || "Unknown class";
+
+      if (confidence < 0.60) {
+        setUploadResult({
+          success: false,
+          uncertain: true,
+          confidence: Math.round(confidence * 10000) / 100,
+          message:
+            "The AI could not identify this image reliably. Please upload a clearer leaf image."
+        });
+      } else {
+        const parts = label.split("___");
+        const crop = parts.length > 1 ? parts[0] : "Unknown";
+        const disease = parts.length > 1 ? parts.slice(1).join("___") : label;
+
+        const result = {
+          success: true,
+          crop,
+          disease,
+          confidence: Math.round(confidence * 10000) / 100 + "%",
+          date: new Date().toLocaleString()
+        };
+
+        setUploadResult(result);
+
+        setScanHistory((previous) => [
+          {
+            id: Date.now(),
+            crop,
+            disease,
+            confidence: result.confidence,
+            date: result.date
+          },
+          ...previous
+        ]);
+      }
+    } catch (error) {
+      console.error("AI prediction failed:", error);
+      setUploadResult({
+        success: false,
+        modelError: true,
+        message:
+          "AI analysis failed. Please try another clear plant-leaf image."
+      });
+    } finally {
+      setUploading(false);
+    }
   };
+
 
   /*
    * =========================================
