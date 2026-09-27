@@ -4,10 +4,7 @@
 
 AgriVision AI is a browser-based agricultural AI project developed for plant health and disease screening. It combines a real trained image-classification model, agricultural disease reference data, and a simple modern web interface.
 
-> **B.Sc. Agriculture – Final Year Project**  
 > **Tamil Nadu Agricultural University (TNAU)**  
-> **Agricultural College & Research Institute, Vazhavachanur (AC&RI VVNR)**  
-> **Student: KOWSHIK S**
 
 ---
 
@@ -165,11 +162,8 @@ The original training dataset is not stored in this repository. The repository c
 **AgriVision AI**  
 **AI-Powered Crop Health Intelligence**
 
-B.Sc. Agriculture – Final Year Project  
-Tamil Nadu Agricultural University (TNAU)  
 Agricultural College & Research Institute, Vazhavachanur (AC&RI VVNR)
 
-**Student:** KOWSHIK S
 
 ---
 
