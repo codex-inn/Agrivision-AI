@@ -2,54 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-
-  <meta
-    name="theme-color"
-    content="#073d20"
-  />
-
-  <meta
-    name="description"
-    content="AgriVision AI — AI-Powered Crop Health Intelligence. TNAU B.Sc. Agriculture Final Year Project."
-  />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#073d20" />
+  <meta name="description" content="AgriVision AI — AI-Powered Crop Health Intelligence. TNAU B.Sc. Agriculture Final Year Project." />
   <title>AgriVision AI | TNAU</title>
 
   <link rel="stylesheet" href="./style.css" />
 
-  <script
-    crossorigin
-    src="https://unpkg.com/react@18/umd/react.production.min.js"
-  ></script>
-
-  <script
-    crossorigin
-    src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
-  ></script>
-
-  <script
-    src="https://unpkg.com/@babel/standalone/babel.min.js"
-  ></script>
-
-  <script
-    src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"
-  ></script>
+  <!-- Browser-side React runtime for the static GitHub Pages version -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 </head>
 
 <body>
-
   <div id="root"></div>
 
-  <script
-    type="text/babel"
-    data-presets="react"
-    src="./script.js"
-  ></script>
+  <script>
+    window.jsPDF = window.jspdf && window.jspdf.jsPDF;
+  </script>
 
+  <script type="text/babel" data-presets="react" src="./script.js"></script>
 </body>
 </html>
