@@ -201,3 +201,130 @@ Agricultural disease reference information is connected to Tamil Nadu Agricultur
 
 ### 🌱 AgriVision AI
 **AI-Powered Crop Health Intelligence**
+
+---
+
+## 🎬 5-Second 3D AI Scan Preview
+
+The AgriVision AI website template is designed to support a short **5-second 3D animated scan presentation** for demonstrations, project reviews, and the landing-page experience.
+
+### Animation sequence
+
+| Time | Scene |
+|---|---|
+| **0–1 s** | 🌿 Leaf appears with a clean 3D entrance |
+| **1–2 s** | 🔍 AI scanning beam moves across the leaf |
+| **2–3 s** | 🧠 AI analysis indicator and detection grid animate |
+| **3–4 s** | 📊 Confidence/result card appears |
+| **4–5 s** | 🌱 Final AgriVision AI result settles into the interface |
+
+### Suggested visual flow
+
+```text
+3D Leaf
+   ↓
+AI SCANNING
+   ↓
+ANALYSING PLANT HEALTH
+   ↓
+Disease Detected
+   ↓
+Crop + Disease + Confidence
+   ↓
+TNAU Reference
+```
+
+The animation is intended as a **visual UI demonstration**, while the actual disease prediction continues to come from the deployed AgriVision image-classification model.
+
+---
+
+## ✨ Premium Website Experience
+
+AgriVision AI follows a modern agriculture + artificial-intelligence interface concept.
+
+### Main experience
+
+- 🌿 Clean agricultural visual identity
+- 🤖 AI-powered plant health scanner
+- 📷 Leaf image upload and preview
+- 🔍 Animated scanning state
+- 📊 Confidence-based result display
+- 🌾 Crop and disease identification
+- 📚 TNAU disease reference connection
+- 🕘 Scan history
+- 📱 Responsive website layout
+- 🧠 Optional offline Ollama explanation layer
+- ⚡ Browser-based TensorFlow.js inference
+- 🔒 No fake diagnosis generation
+
+### Result presentation
+
+A typical result is presented as:
+
+```text
+AGRI VISION AI
+────────────────────────
+
+CROP
+Rice
+
+DETECTED CONDITION
+Leaf Blast
+
+AI CONFIDENCE
+87%
+
+TNAU DISEASE REFERENCE
+Available
+
+STATUS
+AI screening result
+```
+
+The confidence value is produced by the deployed model. The 3D animation is only a presentation layer and does not change the model prediction.
+
+---
+
+## 🧩 System Architecture
+
+```text
+                    AGRIVISION AI
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+         Leaf Scanner          Disease Library
+              │                     │
+              ▼                     ▼
+       TensorFlow.js             TNAU Data
+              │                     │
+              ▼                     │
+        EfficientNetB0             │
+              │                     │
+              └──────────┬──────────┘
+                         ▼
+                  Result Interface
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+        3D Scan Animation      Optional Ollama
+              │                     │
+              ▼                     ▼
+          User Result        Offline Explanation
+```
+
+---
+
+## 🏆 Project Summary
+
+**AgriVision AI** is a browser-based agricultural AI project that brings together:
+
+**Real Image AI + Agricultural Knowledge + Modern UI + Optional Offline AI**
+
+The current deployment focuses on six crops and eighteen image classes. The system is structured so additional crops, disease classes, agricultural references, and local AI capabilities can be added in future versions.
+
+### Core concept
+
+> **Scan the leaf. Understand the crop health. Connect the result with agricultural knowledge.**
+
+---
+
