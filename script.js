@@ -1,13 +1,22 @@
 const { useState, useEffect } = React;
 
 function App() {
+
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadResult, setUploadResult] = useState(null);
   const [language, setLanguage] = useState("en");
 
+
+  /*
+   * =========================================
+   * IMAGE HANDLING
+   * =========================================
+   */
+
   const handleImage = (event) => {
+
     const file = event.target.files?.[0];
 
     if (!file) return;
@@ -34,16 +43,18 @@ function App() {
     setUploadResult(null);
   };
 
+
   /*
    * =========================================
    * AI ANALYSIS
    * =========================================
    *
    * Real AI model will be connected later.
-   * For now, NEVER generate a fake diagnosis.
+   * No fake diagnosis is generated.
    */
 
   const handleUpload = async () => {
+
     if (!selectedFile) {
       alert("Please select a plant image first 🌱");
       return;
@@ -52,7 +63,6 @@ function App() {
     setUploading(true);
     setUploadResult(null);
 
-    // Temporary server-busy simulation
     await new Promise((resolve) => {
       setTimeout(resolve, 1200);
     });
@@ -67,6 +77,7 @@ function App() {
     setUploading(false);
   };
 
+
   /*
    * =========================================
    * CLEAR IMAGE
@@ -74,10 +85,16 @@ function App() {
    */
 
   const clearImage = () => {
+
+    if (image) {
+      URL.revokeObjectURL(image);
+    }
+
     setImage(null);
     setSelectedFile(null);
     setUploadResult(null);
   };
+
 
   /*
    * =========================================
@@ -86,7 +103,9 @@ function App() {
    */
 
   const translations = {
+
     en: {
+
       home: "🏠 Home",
       scanner: "🤖 AI Scanner",
       features: "✨ AI Features",
@@ -95,53 +114,108 @@ function App() {
       project: "🎓 Project",
       scan: "📷 Scan Plant",
 
-      scannerTitle: "🌱 Plant Disease Scanner",
+      scannerTitle:
+        "🌱 Plant Disease Scanner",
+
       scannerText:
         "Upload a clear image of a plant leaf for analysis.",
 
-      upload: "📁 Choose Image",
-      camera: "📷 Open Camera",
-      analyze: "🧠 Analyze with AI",
-      analyzing: "⏳ AI Analyzing...",
+      upload:
+        "📁 Choose Image",
 
-      result: "AI Analysis Result",
+      camera:
+        "📷 Open Camera",
 
-      how: "⚙️ How It Works",
-      uploadStep: "📤 Upload Leaf Image",
-      aiStep: "🧠 AI Image Analysis",
-      diseaseStep: "🔎 Disease Prediction",
-      managementStep: "💡 Management Information"
+      analyze:
+        "🧠 Analyze with AI",
+
+      analyzing:
+        "⏳ AI Analyzing...",
+
+      result:
+        "AI Analysis Result",
+
+      how:
+        "⚙️ How It Works",
+
+      uploadStep:
+        "📤 Upload Leaf Image",
+
+      aiStep:
+        "🧠 AI Image Analysis",
+
+      diseaseStep:
+        "🔎 Disease Prediction",
+
+      managementStep:
+        "💡 Management Information"
     },
 
-    ta: {
-      home: "🏠 முகப்பு",
-      scanner: "🤖 AI ஸ்கேனர்",
-      features: "✨ AI அம்சங்கள்",
-      crops: "🌾 பயிர்கள்",
-      history: "🕘 வரலாறு",
-      project: "🎓 திட்டம்",
-      scan: "📷 பயிரை ஸ்கேன் செய்",
 
-      scannerTitle: "🌱 தாவர நோய் ஸ்கேனர்",
+    ta: {
+
+      home:
+        "🏠 முகப்பு",
+
+      scanner:
+        "🤖 AI ஸ்கேனர்",
+
+      features:
+        "✨ AI அம்சங்கள்",
+
+      crops:
+        "🌾 பயிர்கள்",
+
+      history:
+        "🕘 வரலாறு",
+
+      project:
+        "🎓 திட்டம்",
+
+      scan:
+        "📷 பயிரை ஸ்கேன் செய்",
+
+      scannerTitle:
+        "🌱 தாவர நோய் ஸ்கேனர்",
+
       scannerText:
         "பகுப்பாய்விற்காக தாவர இலை படத்தை பதிவேற்றவும்.",
 
-      upload: "📁 படத்தை தேர்வு செய்",
-      camera: "📷 கேமரா திற",
-      analyze: "🧠 AI மூலம் பகுப்பாய்வு",
-      analyzing: "⏳ AI பகுப்பாய்வு...",
+      upload:
+        "📁 படத்தை தேர்வு செய்",
 
-      result: "AI பகுப்பாய்வு முடிவு",
+      camera:
+        "📷 கேமரா திற",
 
-      how: "⚙️ இது எப்படி வேலை செய்கிறது",
-      uploadStep: "📤 இலை படத்தை பதிவேற்றுதல்",
-      aiStep: "🧠 AI பட பகுப்பாய்வு",
-      diseaseStep: "🔎 நோய் கணிப்பு",
-      managementStep: "💡 மேலாண்மை தகவல்"
+      analyze:
+        "🧠 AI மூலம் பகுப்பாய்வு",
+
+      analyzing:
+        "⏳ AI பகுப்பாய்வு...",
+
+      result:
+        "AI பகுப்பாய்வு முடிவு",
+
+      how:
+        "⚙️ இது எப்படி வேலை செய்கிறது",
+
+      uploadStep:
+        "📤 இலை படத்தை பதிவேற்றுதல்",
+
+      aiStep:
+        "🧠 AI பட பகுப்பாய்வு",
+
+      diseaseStep:
+        "🔎 நோய் கணிப்பு",
+
+      managementStep:
+        "💡 மேலாண்மை தகவல்"
     }
   };
 
+
   const lang = translations[language];
+
 
   /*
    * =========================================
@@ -150,9 +224,13 @@ function App() {
    */
 
   return (
+
     <div className="app">
 
-      {/* TNAU HEADER */}
+
+      {/* =====================================
+          TNAU HEADER
+      ====================================== */}
 
       <header className="tnau-header">
 
@@ -161,11 +239,14 @@ function App() {
         <div className="tnau-brand">
 
           <div className="tnau-logo">
+
             <img
               src="./tnau-logo.png"
               alt="Tamil Nadu Agricultural University Logo"
             />
+
           </div>
+
 
           <div className="university-info">
 
@@ -185,36 +266,23 @@ function App() {
 
         </div>
 
-        <div className="college-info">
-
-          <h3>
-            🏫 Agricultural College & Research Institute
-          </h3>
-
-          <h4>
-            Vazhavachanur
-          </h4>
-
-          <p>
-            Tamil Nadu Agricultural University
-          </p>
-
-          <span>
-            AC&RI • VVNR
-          </span>
-
-        </div>
-
       </header>
 
 
-      {/* NAVIGATION */}
+
+      {/* =====================================
+          NAVIGATION
+      ====================================== */}
 
       <nav className="navbar">
 
-        <a href="#home" className="brand">
+        <a
+          href="#home"
+          className="brand"
+        >
           🌱 AgriVision AI
         </a>
+
 
         <div className="nav-links">
 
@@ -244,25 +312,40 @@ function App() {
 
         </div>
 
+
         <div className="language-toggle">
 
           <button
             type="button"
-            className={language === "en" ? "active" : ""}
-            onClick={() => setLanguage("en")}
+            className={
+              language === "en"
+                ? "active"
+                : ""
+            }
+            onClick={() =>
+              setLanguage("en")
+            }
           >
             EN
           </button>
 
+
           <button
             type="button"
-            className={language === "ta" ? "active" : ""}
-            onClick={() => setLanguage("ta")}
+            className={
+              language === "ta"
+                ? "active"
+                : ""
+            }
+            onClick={() =>
+              setLanguage("ta")
+            }
           >
             தமிழ்
           </button>
 
         </div>
+
 
         <a
           href="#scanner"
@@ -274,13 +357,21 @@ function App() {
       </nav>
 
 
-      {/* HERO */}
 
       <main>
 
-        <section id="home" className="hero">
+
+        {/* =====================================
+            HERO
+        ====================================== */}
+
+        <section
+          id="home"
+          className="hero"
+        >
 
           <div className="hero-overlay"></div>
+
 
           <div className="hero-content">
 
@@ -288,23 +379,29 @@ function App() {
               🌿 SMART AGRICULTURE • AI TECHNOLOGY
             </div>
 
+
             <h1>
               AgriVision <span>AI</span>
             </h1>
+
 
             <h2>
               Plant Disease Detection using Artificial Intelligence
             </h2>
 
+
             <div className="tamil-line">
               “ஆரோக்கியமான பயிர் – வளமான விவசாயம்”
             </div>
 
+
             <p>
-              AgriVision AI is an agriculture-focused artificial
-              intelligence platform designed to identify plant diseases
-              from leaf images and provide useful crop health information.
+              AgriVision AI is an agriculture-focused
+              artificial intelligence platform designed
+              to identify plant diseases from leaf images
+              and provide useful crop health information.
             </p>
+
 
             <div className="hero-actions">
 
@@ -314,6 +411,7 @@ function App() {
               >
                 📷 Scan Your Plant
               </a>
+
 
               <a
                 href="#diseases"
@@ -326,26 +424,43 @@ function App() {
 
           </div>
 
+
+
           {/* SAMPLE AI CARD */}
 
           <div className="ai-card">
 
             <div className="ai-card-header">
-              <span>🤖 AI ANALYSIS</span>
-              <span className="status-dot">●</span>
+
+              <span>
+                🤖 AI ANALYSIS
+              </span>
+
+              <span className="status-dot">
+                ●
+              </span>
+
             </div>
+
 
             <div className="sample-result">
               SAMPLE RESULT
             </div>
 
+
             <h3>
               🌿 Early Blight
             </h3>
 
+
             <div className="confidence">
+
               Confidence
-              <strong>95%</strong>
+
+              <strong>
+                95%
+              </strong>
+
             </div>
 
           </div>
@@ -353,7 +468,10 @@ function App() {
         </section>
 
 
-        {/* SCANNER */}
+
+        {/* =====================================
+            SCANNER
+        ====================================== */}
 
         <section
           id="scanner"
@@ -377,7 +495,9 @@ function App() {
           </div>
 
 
+
           <div className="scanner-layout">
+
 
             <div className="upload-card">
 
@@ -385,13 +505,16 @@ function App() {
                 🌱
               </div>
 
+
               <h3>
                 Upload Plant Leaf
               </h3>
 
+
               <p>
                 JPG, PNG or WEBP • Maximum 10 MB
               </p>
+
 
 
               {image && (
@@ -408,6 +531,7 @@ function App() {
               )}
 
 
+
               <div className="upload-actions">
 
                 <label className="upload-button">
@@ -422,6 +546,7 @@ function App() {
                   />
 
                 </label>
+
 
 
                 <label className="camera-button">
@@ -441,6 +566,7 @@ function App() {
               </div>
 
 
+
               {image && (
 
                 <button
@@ -458,6 +584,7 @@ function App() {
               )}
 
 
+
               {image && (
 
                 <button
@@ -472,6 +599,7 @@ function App() {
             </div>
 
 
+
             {/* SERVER BUSY RESULT */}
 
             {uploadResult?.serverBusy && (
@@ -484,11 +612,13 @@ function App() {
                     {lang.result}
                   </h2>
 
+
                   <span className="analysis-complete-badge">
                     SERVER BUSY
                   </span>
 
                 </div>
+
 
                 <div className="result-main-card">
 
@@ -496,18 +626,22 @@ function App() {
                     ⚠️
                   </div>
 
+
                   <h3>
                     AI Analysis Temporarily Unavailable
                   </h3>
 
+
                   <p>
-                    The AI disease detection service is
-                    currently busy.
+                    The AI disease detection service
+                    is currently busy.
                   </p>
+
 
                   <p>
                     Please try again later.
                   </p>
+
 
                   <div className="model-badge">
                     SERVER BUSY
@@ -524,7 +658,10 @@ function App() {
         </section>
 
 
-        {/* FEATURES */}
+
+        {/* =====================================
+            FEATURES
+        ====================================== */}
 
         <section
           id="features"
@@ -546,37 +683,76 @@ function App() {
 
           <div className="features-grid">
 
+
             <div className="feature-card">
-              <span>🤖</span>
-              <h3>AI Prediction</h3>
+
+              <span>
+                🤖
+              </span>
+
+              <h3>
+                AI Prediction
+              </h3>
+
               <p>
                 AI-based crop disease identification.
               </p>
+
             </div>
 
+
+
             <div className="feature-card">
-              <span>🎯</span>
-              <h3>Confidence Score</h3>
+
+              <span>
+                🎯
+              </span>
+
+              <h3>
+                Confidence Score
+              </h3>
+
               <p>
                 Model confidence will be displayed
                 with the prediction.
               </p>
+
             </div>
 
+
+
             <div className="feature-card">
-              <span>💊</span>
-              <h3>Management</h3>
+
+              <span>
+                💊
+              </span>
+
+              <h3>
+                Management
+              </h3>
+
               <p>
                 Crop health management information.
               </p>
+
             </div>
 
+
+
             <div className="feature-card">
-              <span>📚</span>
-              <h3>Disease Library</h3>
+
+              <span>
+                📚
+              </span>
+
+              <h3>
+                Disease Library
+              </h3>
+
               <p>
                 Crop and disease information library.
               </p>
+
             </div>
 
           </div>
@@ -584,7 +760,10 @@ function App() {
         </section>
 
 
-        {/* CROPS */}
+
+        {/* =====================================
+            CROPS
+        ====================================== */}
 
         <section
           id="diseases"
@@ -606,35 +785,42 @@ function App() {
 
           <div className="crop-grid">
 
+
             <div className="crop-card">
               <span>🌾</span>
               <h3>Rice</h3>
             </div>
+
 
             <div className="crop-card">
               <span>🌾</span>
               <h3>Wheat</h3>
             </div>
 
+
             <div className="crop-card">
               <span>🌽</span>
               <h3>Maize</h3>
             </div>
+
 
             <div className="crop-card">
               <span>🌿</span>
               <h3>Cotton</h3>
             </div>
 
+
             <div className="crop-card">
               <span>🎋</span>
               <h3>Sugarcane</h3>
             </div>
 
+
             <div className="crop-card">
               <span>🥜</span>
               <h3>Groundnut</h3>
             </div>
+
 
             <div className="crop-card">
               <span>🌱</span>
@@ -646,14 +832,18 @@ function App() {
         </section>
 
 
-        {/* PROJECT */}
+
+        {/* =====================================
+            FINAL YEAR PROJECT
+        ====================================== */}
 
         <section
           id="project"
           className="project-section"
         >
 
-          <div className="project-column">
+
+          <div className="project-intro">
 
             <span>
               FINAL YEAR PROJECT
@@ -676,7 +866,8 @@ function App() {
           </div>
 
 
-          <div className="project-column">
+
+          <div className="institution-card">
 
             <span>
               INSTITUTION
@@ -687,38 +878,36 @@ function App() {
             </h2>
 
             <p>
-              Agricultural College & Research Institute,
+              Agricultural College &amp; Research Institute,
               Vazhavachanur
             </p>
 
           </div>
 
 
-          <div className="project-column">
 
-            <div className="project-card">
+          <div className="project-card">
 
-              <div className="project-icon">
-                🌱
-              </div>
-
-              <span>
-                PROJECT AREA
-              </span>
-
-              <h3>
-                Agricultural Artificial Intelligence
-              </h3>
-
-              <p>
-                Plant Health
-                <br />
-                Crop Disease Detection
-              </p>
-
+            <div className="project-icon">
+              🌱
             </div>
 
+            <span>
+              PROJECT AREA
+            </span>
+
+            <h3>
+              Agricultural Artificial Intelligence
+            </h3>
+
+            <p>
+              Plant Health
+              <br />
+              Crop Disease Detection
+            </p>
+
           </div>
+
 
 
           <div className="submitted-block">
@@ -739,46 +928,13 @@ function App() {
 
         </section>
 
-
-        {/* ABOUT / CAMPUS */}
-
-        <section
-          id="about"
-          className="campus-section"
-        >
-
-          <div className="campus-overlay"></div>
-
-          <div className="campus-content">
-
-            <span>
-              AGRICULTURAL COLLEGE & RESEARCH INSTITUTE
-            </span>
-
-            <h2>
-              Vazhavachanur
-            </h2>
-
-            <h3>
-              Tamil Nadu Agricultural University
-            </h3>
-
-            <p>
-              AC&RI • VVNR
-            </p>
-
-            <div className="tamil-campus">
-              தமிழ்நாடு வேளாண்மைப் பல்கலைக்கழகம்
-            </div>
-
-          </div>
-
-        </section>
-
       </main>
 
 
-      {/* FOOTER */}
+
+      {/* =====================================
+          FOOTER
+      ====================================== */}
 
       <footer>
 
@@ -786,28 +942,30 @@ function App() {
           🌱 AgriVision AI
         </div>
 
+
         <p>
           AI-Powered Crop Health Intelligence
         </p>
 
+
         <div className="footer-line"></div>
+
 
         <strong>
           🎓 Final Year Project
         </strong>
 
+
         <span>
           B.Sc. Agriculture
         </span>
 
-        <small>
-          🏫 Agricultural College & Research Institute,
-          Vazhavachanur (VVNR)
-        </small>
 
         <small>
-          Tamil Nadu Agricultural University
+          🏫 TNAU • Agricultural College &amp;
+          Research Institute, Vazhavachanur
         </small>
+
 
         <div className="copyright">
           © 2026 AgriVision AI • Final Year Project
@@ -820,14 +978,16 @@ function App() {
 }
 
 
+
 /*
  * =========================================
  * START APPLICATION
  * =========================================
  */
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root")
-);
+const root =
+  ReactDOM.createRoot(
+    document.getElementById("root")
+  );
 
 root.render(<App />);
