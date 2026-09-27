@@ -3110,3 +3110,50 @@ footer small {
     font-size: 9px;
   }
 }
+
+/* =====================================================
+   PDF FRONTEND ALIGNMENT
+===================================================== */
+
+.history-stats {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.history-stats > div {
+  padding: 18px;
+  background: white;
+  border: 1px solid #dce9dd;
+  border-radius: 13px;
+}
+
+.history-stats span {
+  display: block;
+  color: #77847a;
+  font-size: 9px;
+  margin-bottom: 6px;
+}
+
+.history-stats strong {
+  color: #18833d;
+  font-size: 24px;
+}
+
+.history-privacy {
+  margin-top: 18px;
+  padding: 13px 15px;
+  background: #fff7df;
+  border-radius: 10px;
+  color: #75613a;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .history-stats {
+    grid-template-columns: 1fr;
+  }
+}
