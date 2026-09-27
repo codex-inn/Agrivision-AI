@@ -142,7 +142,6 @@ function App() {
           .fromPixels(img)
           .resizeBilinear([224, 224])
           .toFloat()
-          .div(255)
           .expandDims(0);
 
         return aiModel.predict(tensor).dataSync();
