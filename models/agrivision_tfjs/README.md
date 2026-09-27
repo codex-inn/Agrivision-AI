@@ -1,0 +1,1 @@
+# AgriVision TensorFlow.js Model\n\nThis directory intentionally contains no fake model weights. Add model.json, TensorFlow.js shard files, and labels.json only after real training and evaluation.\n
