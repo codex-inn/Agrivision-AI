@@ -751,11 +751,7 @@ function App() {
           className="project-section"
         >
 
-          <div className="project-column">
-
-            <span>
-              FINAL YEAR PROJECT
-            </span>
+          <div className="project-main">
 
             <h2>
               AgriVision AI
@@ -766,72 +762,52 @@ function App() {
             </h3>
 
             <p>
-              An agriculture-focused artificial
-              intelligence project for plant health
-              and disease detection.
+              An agriculture-focused artificial intelligence project for plant health and disease detection.
             </p>
 
-          </div>
 
+            <div className="project-details">
 
-          <div className="project-column">
+              <div className="project-card institution-card">
 
-            <span>
-              INSTITUTION
-            </span>
+                <div className="project-icon">
+                  🏫
+                </div>
 
-            <h2>
-              TNAU
-            </h2>
+                <span>
+                  INSTITUTION
+                </span>
 
-            <p>
-              Agricultural College & Research Institute,
-              Vazhavachanur
-            </p>
+                <h3>
+                  Agricultural College & Research Institute
+                </h3>
 
-          </div>
+                <p>
+                  Vazhavachanur (VVNR)
+                  <br />
+                  Tamil Nadu Agricultural University
+                </p>
 
-
-          <div className="project-column">
-
-            <div className="project-card">
-
-              <div className="project-icon">
-                🌱
               </div>
 
+            </div>
+
+
+            <div className="submitted-block">
+
+              <div>
+                📄 SUBMITTED BY
+              </div>
+
+              <strong>
+                KOWSHIK S
+              </strong>
+
               <span>
-                PROJECT AREA
+                B.Sc. Agriculture – Final Year
               </span>
 
-              <h3>
-                Agricultural Artificial Intelligence
-              </h3>
-
-              <p>
-                Plant Health
-                <br />
-                Crop Disease Detection
-              </p>
-
             </div>
-
-          </div>
-
-
-          <div className="submitted-block">
-
-            <div>
-              📄 SUBMITTED BY
-            </div>
-
-            <strong>
-              KOWSHIK S
-            </strong>
-
-            <span>
-              B.Sc. Agriculture – Final Year
-            </span>
 
           </div>
 
