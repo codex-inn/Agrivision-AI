@@ -158,16 +158,7 @@ The original training dataset is not stored in this repository. The repository c
 ---
 
 
-## 📌 Current Status
 
-- ✅ Web application deployed
-- ✅ Real AI model deployed
-- ✅ TensorFlow.js inference configured
-- ✅ 18-class / 6-crop model
-- ✅ TNAU disease reference layer
-- ✅ Confidence-based uncertainty handling
-- ✅ Project documentation
-- 🔄 Optional Ollama integration
 
 ---
 
